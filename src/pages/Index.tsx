@@ -2,6 +2,7 @@
 import Layout from "@/components/layout/Layout";
 import StatusCard from "@/components/tenant/StatusCard";
 import Announcements from "@/components/tenant/Announcements";
+import RecentIssues from "@/components/tenant/RecentIssues";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -43,24 +44,30 @@ const Index = () => {
               type="power"
               status={amenityData.power.status}
               detail={`${amenityData.power.hoursToday} hours today`}
-              lastUpdated={formatDate(amenityData.power.lastUpdated)}
+              lastUpdated={amenityData.power.lastUpdated}
             />
             <StatusCard
               type="water"
               status={amenityData.water.quality}
               detail={`Tank level: ${amenityData.water.tankLevel}% full`}
-              lastUpdated={formatDate(amenityData.water.lastUpdated)}
+              lastUpdated={amenityData.water.lastUpdated}
             />
             <StatusCard
               type="security"
               status={amenityData.security.gateStatus}
               detail="Gate status updated"
-              lastUpdated={formatDate(amenityData.security.lastActivity)}
+              lastUpdated={amenityData.security.lastActivity}
             />
           </div>
           <p className="text-sm text-muted-foreground mt-2">
             Status updates are provided by estate management
           </p>
+        </section>
+
+        {/* Recent Issues Section */}
+        <section>
+          <h2 className="text-2xl font-bold mb-4">Recent Issues</h2>
+          <RecentIssues />
         </section>
 
         {/* Announcements Section */}

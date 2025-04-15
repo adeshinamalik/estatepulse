@@ -1,6 +1,7 @@
 
 import Layout from "@/components/layout/Layout";
 import IssueForm from "@/components/tenant/IssueForm";
+import RecentIssues from "@/components/tenant/RecentIssues";
 
 const ReportIssue = () => {
   return (
@@ -13,7 +14,15 @@ const ReportIssue = () => {
           </p>
         </section>
         
-        <IssueForm />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <IssueForm />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold mb-4">Your Recent Reports</h2>
+            <RecentIssues />
+          </div>
+        </div>
       </div>
     </Layout>
   );

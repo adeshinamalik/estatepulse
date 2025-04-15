@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
+import { formatDate } from "@/lib/utils";
 
 interface StatusCardProps {
   type: 'power' | 'water' | 'security';
@@ -67,6 +68,12 @@ const getCardTitle = (type: 'power' | 'water' | 'security') => {
 };
 
 const StatusCard = ({ type, status, detail, lastUpdated }: StatusCardProps) => {
+  // Format the date in Nigerian locale format
+  const formattedDate = new Date(lastUpdated).toLocaleString('en-NG', {
+    dateStyle: 'short',
+    timeStyle: 'short'
+  });
+
   return (
     <Card className={`${getCardClassByType(type)} hover:shadow-md transition-shadow`}>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -82,7 +89,7 @@ const StatusCard = ({ type, status, detail, lastUpdated }: StatusCardProps) => {
         <p className="text-muted-foreground text-sm mb-4">{detail}</p>
         <div className="flex items-center text-xs text-muted-foreground">
           <Clock className="h-3 w-3 mr-1" />
-          Updated: {lastUpdated}
+          Updated: {formattedDate}
         </div>
       </CardContent>
     </Card>

@@ -8,16 +8,35 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Megaphone, Clock } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { formatDate } from "@/lib/utils";
+import { announcementsData } from "@/lib/mockData";
 
-import { announcementsData, formatDate } from "@/lib/mockData";
+interface Announcement {
+  id: string;
+  title: string;
+  message: string;
+  isPinned: boolean;
+  postedAt: string;
+}
 
 const Announcements = () => {
+  // In a real app, this would fetch from Firestore
+  const { data: announcements } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
+      // This would be replaced with a Firestore query
+      return announcementsData;
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+  
   // Sort announcements: pinned first, then by date
-  const sortedAnnouncements = [...announcementsData].sort((a, b) => {
+  const sortedAnnouncements = announcements ? [...announcements].sort((a, b) => {
     if (a.isPinned && !b.isPinned) return -1;
     if (!a.isPinned && b.isPinned) return 1;
     return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime();
-  });
+  }) : [];
   
   return (
     <Card className="w-full">
@@ -54,7 +73,7 @@ const Announcements = () => {
                 </h3>
                 <div className="flex items-center text-xs text-muted-foreground">
                   <Clock className="h-3 w-3 mr-1" />
-                  {formatDate(announcement.postedAt)}
+                  Posted: {formatDate(announcement.postedAt)}
                 </div>
               </div>
               <p className="text-sm">{announcement.message}</p>

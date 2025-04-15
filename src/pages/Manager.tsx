@@ -1,18 +1,22 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Lock, Mail } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const Manager = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
   
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     
@@ -21,17 +25,22 @@ const Manager = () => {
     
     setIsLoading(true);
     
-    // Simulate API call - would connect to Firebase Auth in real implementation
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
       // For demo purposes, accept any email/password with "manager" in it
       if (email.includes("manager")) {
-        // Redirect would happen here
-        window.location.href = "/manager-dashboard";
+        // Simulate Firebase auth for demo
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        // In a real app, we would use:
+        // await login(email, password);
+        navigate("/manager-dashboard");
       } else {
         setError("Invalid credentials. Please try again.");
       }
-    }, 1500);
+    } catch (err: any) {
+      setError(err.message || "Authentication failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   return (
