@@ -52,6 +52,12 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				/* EstatePulse amenity colors */
+				estate: {
+					power: 'hsl(var(--power))',
+					water: 'hsl(var(--water))',
+					security: 'hsl(var(--security))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
