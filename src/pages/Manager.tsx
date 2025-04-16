@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Lock, Mail } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Manager = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ const Manager = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { toast } = useToast();
   
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,18 +27,26 @@ const Manager = () => {
     setIsLoading(true);
     
     try {
-      // For demo purposes, accept any email/password with "manager" in it
-      if (email.includes("manager")) {
-        // Simulate Firebase auth for demo
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        // In a real app, we would use:
-        // await login(email, password);
-        navigate("/manager-dashboard");
-      } else {
-        setError("Invalid credentials. Please try again.");
-      }
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) throw signInError;
+
+      toast({
+        title: "Login successful",
+        description: "Welcome back to the management dashboard",
+      });
+
+      navigate("/manager-dashboard");
     } catch (err: any) {
       setError(err.message || "Authentication failed. Please try again.");
+      toast({
+        variant: "destructive",
+        title: "Login failed",
+        description: err.message || "Authentication failed. Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -97,7 +106,7 @@ const Manager = () => {
           </CardContent>
           <CardFooter className="flex flex-col">
             <p className="text-xs text-center text-muted-foreground mt-2">
-              For demo purposes, use any email containing "manager" with any password
+              Contact your administrator if you need access
             </p>
           </CardFooter>
         </Card>
