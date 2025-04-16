@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -54,58 +53,66 @@ const Manager = () => {
   
   return (
     <Layout>
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Manager Login</CardTitle>
-            <CardDescription className="text-center">
-              Enter your credentials to access the management dashboard
+      <div className="min-h-[80vh] flex items-center justify-center px-4">
+        <Card className="w-full max-w-md bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-900/50 backdrop-blur-sm border-opacity-50">
+          <CardHeader className="space-y-3 text-center pb-8">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              Manager Login
+            </CardTitle>
+            <CardDescription className="text-base">
+              Access the management dashboard securely
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
-                  />
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground/70" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-10 h-12 text-base bg-white dark:bg-gray-950 border-opacity-50"
+                    />
+                  </div>
                 </div>
-              </div>
-              
-              <div className="space-y-2">
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10"
-                  />
+                
+                <div>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground/70" />
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="pl-10 h-12 text-base bg-white dark:bg-gray-950 border-opacity-50"
+                    />
+                  </div>
                 </div>
               </div>
               
               {error && (
-                <div className="bg-destructive/10 text-destructive px-4 py-2 rounded-md flex items-center">
-                  <AlertCircle className="h-4 w-4 mr-2" />
-                  {error}
+                <div className="bg-destructive/10 text-destructive px-4 py-3 rounded-lg flex items-center gap-2 text-sm">
+                  <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                  <span>{error}</span>
                 </div>
               )}
               
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
+              <Button 
+                type="submit" 
+                className="w-full h-12 text-base font-medium"
+                disabled={isLoading}
+              >
+                {isLoading ? "Authenticating..." : "Login"}
               </Button>
             </form>
           </CardContent>
-          <CardFooter className="flex flex-col">
-            <p className="text-xs text-center text-muted-foreground mt-2">
+          <CardFooter className="flex flex-col pb-8">
+            <p className="text-sm text-center text-muted-foreground">
               Contact your administrator if you need access
             </p>
           </CardFooter>
