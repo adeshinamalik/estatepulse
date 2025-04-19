@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import AIInsights from "@/components/manager/AIInsights";
 import { 
   BatteryCharging, 
   Droplets, 
@@ -15,7 +17,8 @@ import {
   Bell, 
   Users, 
   CreditCard,
-  LogOut
+  LogOut,
+  BrainCircuit
 } from "lucide-react";
 
 const ManagerDashboard = () => {
@@ -62,8 +65,11 @@ const ManagerDashboard = () => {
           </Button>
         </div>
         
+        {/* AI Insights Component */}
+        <AIInsights />
+        
         <Tabs defaultValue="amenities">
-          <TabsList className="grid grid-cols-5 w-full max-w-4xl">
+          <TabsList className="grid grid-cols-6 w-full max-w-4xl">
             <TabsTrigger value="amenities" className="flex items-center gap-2">
               <BatteryCharging className="h-4 w-4" />
               <span className="hidden sm:inline">Amenities</span>
@@ -83,6 +89,10 @@ const ManagerDashboard = () => {
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Analytics</span>
+            </TabsTrigger>
+            <TabsTrigger value="ai" className="flex items-center gap-2">
+              <BrainCircuit className="h-4 w-4" />
+              <span className="hidden sm:inline">AI</span>
             </TabsTrigger>
           </TabsList>
           
@@ -275,6 +285,75 @@ const ManagerDashboard = () => {
                   <p className="text-center py-12 text-muted-foreground">
                     This section will display charts and analytics for estate performance
                   </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="ai">
+              <Card>
+                <CardHeader>
+                  <CardTitle>AI Configuration</CardTitle>
+                  <CardDescription>
+                    Configure AI assistant and alerts
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <h3 className="font-medium">Alert Thresholds</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <Label>Power Service Alert</Label>
+                        <div className="flex items-center gap-2">
+                          <Input 
+                            type="number" 
+                            min="1" 
+                            defaultValue="80" 
+                            placeholder="Hours"
+                          />
+                          <span className="text-sm text-muted-foreground">hours</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Alert when generator runs more than this many hours
+                        </p>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Water Drop Alert</Label>
+                        <div className="flex items-center gap-2">
+                          <Input 
+                            type="number" 
+                            min="1" 
+                            defaultValue="25" 
+                            placeholder="%"
+                          />
+                          <span className="text-sm text-muted-foreground">%</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Alert when water level drops by this percentage
+                        </p>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label>Security Alert</Label>
+                        <div className="flex items-center gap-2">
+                          <Input 
+                            type="number" 
+                            min="1" 
+                            defaultValue="3" 
+                            placeholder="Count"
+                          />
+                          <span className="text-sm text-muted-foreground">opens</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Alert when gate opens exceed average by this number
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6">
+                      <Button>Save Configuration</Button>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

@@ -1,1 +1,5 @@
+
 project_id = "hrbwnahotvrslmokhhgu"
+
+[functions.estate-insights]
+verify_jwt = false

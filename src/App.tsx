@@ -13,6 +13,7 @@ import ReportIssue from "./pages/ReportIssue";
 import AnnouncementsPage from "./pages/Announcements";
 import Manager from "./pages/Manager";
 import ManagerDashboard from "./pages/ManagerDashboard";
+import ChatAssistant from "./pages/ChatAssistant";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/report-issue" element={<ReportIssue />} />
               <Route path="/announcements" element={<AnnouncementsPage />} />
               <Route path="/manager" element={<Manager />} />
+              <Route path="/chat" element={<ChatAssistant />} />
               
               {/* Protected routes */}
               <Route element={<PrivateRoute />}>

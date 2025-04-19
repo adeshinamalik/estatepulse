@@ -4,7 +4,7 @@ import StatusCard from "@/components/tenant/StatusCard";
 import Announcements from "@/components/tenant/Announcements";
 import RecentIssues from "@/components/tenant/RecentIssues";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, MessageSquare } from "lucide-react";
+import { AlertTriangle, MessageSquare, BrainCircuit } from "lucide-react";
 import { Link } from "react-router-dom";
 import { amenityData, formatDate } from "@/lib/mockData";
 
@@ -28,10 +28,12 @@ const Index = () => {
                   Report an Issue
                 </Button>
               </Link>
-              <Button variant="outline" className="gap-2">
-                <MessageSquare size={16} />
-                Ask a Question
-              </Button>
+              <Link to="/chat">
+                <Button variant="outline" className="gap-2">
+                  <MessageSquare size={16} />
+                  Chat with Assistant
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
